@@ -95,6 +95,7 @@ table{
 	width:80%
 	*/
 	border:"0";
+	color: black;
 }
 
 td, th{
@@ -105,4 +106,21 @@ td, th{
 	border-collapse:collapse;
 	*/
 	text-align: center;
+	color: black;
 }
+
+/*Styles input elements within a class called choice that is used around the checkbox and radio buttons*/
+.choice input{
+	width:10%;
+	display:inline-block;
+	color:black;
+}
+
+/*Styles label elements within a class called choice that is used around the checkbox and radio buttons*/
+.choice label{
+	color:black;
+	display:inline-block; 
+	width: 35%;
+}
+
+

@@ -94,7 +94,61 @@ $count = 0;
                             $count++;
                             
                         } else if($type == 3){ // make in to the unlimited answers type
-                            
+
+                            // print the question 
+
+                            // run another querry to determine how many choices that answer has
+
+                            // loop through and print all the choices 
+
+                            ?>
+                            <tr>
+                                <td><? echo $question; ?></td>
+                            </tr>
+                            <?php
+                            // finds out how many choices exist for the current question
+                            $stmt = $mysqli->prepare("SELECT COUNT(*) FROM choices_tbl WHERE choiceQuestion_id = ?");
+                            $stmt->bind_param('i',$question_id);
+                            $stmt->execute();    
+                            $stmt->store_result();
+
+                            // get variables from result.
+                            $stmt->bind_result($choice_count);
+                            $stmt->fetch();
+                            //-----------------------------------------
+
+                            // loads the choices values and choice_id
+                            $stmt = $mysqli->prepare("SELECT choice_id, choice FROM choices_tbl WHERE choiceQuestion_id = ? ORDER BY RAND()");
+                            $stmt->bind_param('i',$question_id);
+                            $stmt->execute();    
+                            $stmt->store_result();
+
+                            // get variables from result.
+                            $stmt->bind_result($choice_id, $value); // dont need choice id -- remove later
+                            ?>
+                            <tr><td><span class="choice">
+                            <?php
+                            while($stmt->fetch()){ // render the various choices
+
+                                //for($i=$count + 1;$i<=$count+$choice_count;$i++){ // might need to change way of value
+                                    $radioValue = $question_id.'.'.$value;
+                                ?>
+                                    <input name = "<? echo $count; ?>" type="radio" id="<? echo $id; ?>" value = "<? echo $radioValue; ?>">
+                                    <label for="<? echo $id; ?>"><? echo $value; ?></label><br>
+                                <?php
+                                    //$value++;
+                                    $id++;
+                                //}
+
+                                
+
+                                //---------------------------------------------
+                            }
+                            $count++;
+                            ?>
+                            </span></td></tr>
+                            <?php
+
                         }
 
                         
@@ -102,14 +156,14 @@ $count = 0;
                     ?>
 
                     
-                    <tr><td colspan="6" align="center"><input name = "submit" type = "submit" id = "submit" value = "Submit"></td></tr> <!-- rowspan = 6 -->
+                    <tr><td colspan="6" align="center"><input name = "submit" type = "submit" id = "submit" value = "Submit"></td></tr>
             </form>
         </table>
 
                     <?php
 
                     if(isset($_POST['submit'])) {
-                        for($i = 0; $i <= $count; $i++){
+                        for($i = 0; $i <= $count; $i++){ // change to < and remove count++ from the end of all for loops
                             $update_id = $_POST[(string)$i];
 
                             //get the question id
@@ -121,13 +175,13 @@ $count = 0;
                             //$value = 2;//substr($update_id, strrchr($update_id, "."));
                             $value = substr($update_id, strpos($update_id, '.')+1);
 
-                            $form = 1;
+                            $form = 1; // change to be dynamic later
 
                             
                             // get the form
                             
                             $insert_stmt = $mysqli->prepare("INSERT INTO answer_tbl (answer_question, answer_value, answer_form) VALUES (?, ?, ?)");
-                            $insert_stmt->bind_param('sii', $question_id, $value, $form);
+                            $insert_stmt->bind_param('ssi', $question_id, $value, $form);
 
                             // Execute the prepared query.
                             $insert_stmt->execute();
