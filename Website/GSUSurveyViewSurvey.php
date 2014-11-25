@@ -53,7 +53,11 @@ $count = 0;
                                 <td></td><td>Strongly Disagree</td><td>Disagree</td><td>Neutral</td><td>Agree</td><td>Strongly Agree</td>
                             </tr>
                             <tr>
+<<<<<<< HEAD
                                 <td><?php echo $question; ?></td>
+=======
+                                <td><? echo $question; ?></td>
+>>>>>>> ceec781db54381b970517b9b43b8118ca212027a
                             <?php
 
                                 for($i=$count + 1;$i<=$count+5;$i++){

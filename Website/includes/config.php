@@ -2,7 +2,11 @@
 
 define("HOST", "localhost"); 			
 define("USER", "root"); 				
+<<<<<<< HEAD
 define("PASSWORD", "bronco"); 					
+=======
+define("PASSWORD", "root"); 					
+>>>>>>> ceec781db54381b970517b9b43b8118ca212027a
 define("DATABASE", "easysurvey"); 
 
  
