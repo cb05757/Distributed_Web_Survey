@@ -16,7 +16,7 @@ $count = 0;
 	<head>
 		<title>GSU Survey View</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="GSUSurvey.css">
+		<link rel="stylesheet" href="GSUSurveyView.css">
 	</head>
 
 	<body>
@@ -53,11 +53,11 @@ $count = 0;
                                 <td></td><td>Strongly Disagree</td><td>Disagree</td><td>Neutral</td><td>Agree</td><td>Strongly Agree</td>
                             </tr>
                             <tr>
-<<<<<<< HEAD
+
                                 <td><?php echo $question; ?></td>
-=======
-                                <td><? echo $question; ?></td>
->>>>>>> ceec781db54381b970517b9b43b8118ca212027a
+
+                                <td><?php echo $question; ?></td>
+
                             <?php
 
                                 for($i=$count + 1;$i<=$count+5;$i++){
@@ -78,10 +78,10 @@ $count = 0;
                         } else if($type == 2){ // option 1 or 2
                             ?>
                             <tr>
-                            <td></td><td><? echo $q1; ?></td><td><? echo $q2; ?></td><td></td><td></td><td></td>
+                            <td></td><td><?php echo $q1; ?></td><td><?php echo $q2; ?></td><td></td><td></td><td></td>
                             </tr>
                             <tr>
-                                <td><? echo $question; ?></td>
+                                <td><?php echo $question; ?></td>
                             <?php
 
                                 for($i=$count + 1;$i<=$count+2;$i++){
@@ -107,7 +107,7 @@ $count = 0;
 
                             ?>
                             <tr>
-                                <td><? echo $question; ?></td>
+                                <td><?php echo $question; ?></td>
                             </tr>
                             <?php
                             // finds out how many choices exist for the current question

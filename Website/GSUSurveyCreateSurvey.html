@@ -1,3 +1,12 @@
+<?php
+
+include_once 'includes/db-connect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
+
+
+?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -82,10 +91,44 @@
 			<div id ="content">
 				<span id = "buttons">
 					<input type = "button" value = "Create New Question" onclick="addQuestion()">
-					<input type = "button" value = "Finish Survey">
+					<input type = "button" value = "FinishSurvey">
 				</span>
 				<br><br> 
 			</div>
 		</div>
 	</body> 
 </html>
+
+<?php
+
+                    if(isset($_POST['FinishSurvey'])) {
+                        for($i = 0; $i <= $count; $i++){ // change to < and remove count++ from the end of all for loops
+                            $update_id = $_POST[(string)$i];
+
+                            //get the question id
+                            //$question_id = substr($update_id, 0, strrchr($update_id, ".")-1);
+
+                            $question_id = substr($update_id, 0, strpos($update_id, '.'));
+
+                            // get the value of the answer
+                            //$value = 2;//substr($update_id, strrchr($update_id, "."));
+                            $value = substr($update_id, strpos($update_id, '.')+1);
+
+                            $form = 1; // change to be dynamic later
+
+                            
+                            // get the form
+                            
+                            $insert_stmt = $mysqli->prepare("INSERT INTO answer_tbl (answer_question, answer_value, answer_form) VALUES (?, ?, ?)");
+                            $insert_stmt->bind_param('ssi', $question_id, $value, $form);
+
+                            // Execute the prepared query.
+                            $insert_stmt->execute();
+ 
+
+                        }
+                        //echo '<script type="text/javascript"> window.location = "pulldb.php";</script>';
+                        echo $question_id;
+                    }
+                    
+                    ?>
