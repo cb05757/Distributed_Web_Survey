@@ -74,6 +74,7 @@ h3{
 	padding-right:20px;
 	background-color: #FFFFFF;
 	margin-left: 160px;
+	position: relative;
 }
 
 #content img{
@@ -99,5 +100,11 @@ td, th{
 	border-style:solid; 
 	color:#000000; 
 	border-collapse:collapse; 
+}
+
+#buttons{
+    position: absolute;
+	bottom: 0px;
+	right: 0px;
 }
 

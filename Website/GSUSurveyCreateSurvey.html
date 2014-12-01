@@ -20,7 +20,7 @@
 				text.value = question;
 				text.text = question;
 				text.readOnly = true;
-				text.size = "130";
+				text.size = "120";
 				div.appendChild(text);
 
 
@@ -42,13 +42,23 @@
 					radio.text = response;
 					radio.name = "question " + questionNum + "response";
 					radio.id = "question " + questionNum + "response";
-					div.appendChild(radio);
+					div.appendChild(radio); 
 
 					var label = document.createElement("Label");
 					label.setAttribute("for", "question " + questionNum + "response");
 					label.innerHTML = response;
 					div.appendChild(label);
 
+					/*var editBtn = document.createElement("input");
+					editBtn.type = "button";
+					editBtn.value = "Edit";
+					editBtn.onclick = function editResponse(response){
+						response = prompt("What do you want the response to say");
+						label = response;
+						return response;
+					}
+
+					div.appendChild(editBtn);*/
 
 					var lineBreak = document.createElement("br");
 					div.appendChild(lineBreak);
@@ -57,7 +67,6 @@
 
 				}
 				document.getElementById('content').appendChild(div);
-
 			}
 
 		</script>
@@ -71,7 +80,10 @@
 			</ul>
 			</div>
 			<div id ="content">
-				<input type = "button" value = "Create New Question" onclick="addQuestion()">
+				<span id = "buttons">
+					<input type = "button" value = "Create New Question" onclick="addQuestion()">
+					<input type = "button" value = "Finish Survey">
+				</span>
 				<br><br> 
 			</div>
 		</div>
