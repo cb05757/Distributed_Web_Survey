@@ -87,40 +87,17 @@ h3{
 }
 
 table{
-	/*
 	border-width:2px;
 	border-style:solid; 
 	color:#000000; 
 	border-collapse:collapse; 
 	width:80%
-	*/
-	border:"0";
-	color: black;
 }
 
 td, th{
-	/*
 	border-width:2px;
 	border-style:solid; 
 	color:#000000; 
-	border-collapse:collapse;
-	*/
-	text-align: center;
-	color: black;
+	border-collapse:collapse; 
 }
-
-/*Styles input elements within a class called choice that is used around the checkbox and radio buttons*/
-.choice input{
-	width:10%;
-	display:inline-block;
-	color:black;
-}
-
-/*Styles label elements within a class called choice that is used around the checkbox and radio buttons*/
-.choice label{
-	color:black;
-	display:inline-block; 
-	width: 35%;
-}
-
 

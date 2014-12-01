@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>GSU Create Survey</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="GSUSurvey.css">
+		<script type="text/javascript">
+			var questionNum = 0;
+			function addQuestion(){
+				questionNum++;
+				var lineBreak = document.createElement("br");
+				var div = document.createElement("div");
+				div.id = "question"+ questionNum;
+				div.className = "question";
+				var question = prompt("What is your question?");
+
+
+				var text = document.createElement("input");
+				text.type = "input";
+				text.value = question;
+				text.text = question;
+				text.readOnly = true;
+				text.size = "130";
+				div.appendChild(text);
+
+
+				div.appendChild(lineBreak);
+				var lineBreak = document.createElement("br");
+				div.appendChild(lineBreak);
+
+				var numOfResponses = prompt("How many responses do you have?");
+				
+
+				for(var x = 0; x < numOfResponses; x++){
+					var y = x
+					y++;
+					var response = prompt("Response # " + y + ":");
+					//Send to the DB
+					var radio = document.createElement("input");
+					radio.type = "radio";
+					radio.value = response;
+					radio.text = response;
+					radio.name = "question " + questionNum + "response";
+					radio.id = "question " + questionNum + "response";
+					div.appendChild(radio);
+
+					var label = document.createElement("Label");
+					label.setAttribute("for", "question " + questionNum + "response");
+					label.innerHTML = response;
+					div.appendChild(label);
+
+
+					var lineBreak = document.createElement("br");
+					div.appendChild(lineBreak);
+					var lineBreak = document.createElement("br");
+					div.appendChild(lineBreak);
+
+				}
+				document.getElementById('content').appendChild(div);
+
+			}
+
+		</script>
+	</head>
+
+	<body onload = "addQuestion()">
+		<div id = "wrapper">
+			<h1>GSU Survey</h1>
+			<div id="nav">
+			<ul>
+			</ul>
+			</div>
+			<div id ="content">
+				<input type = "button" value = "Create New Question" onclick="addQuestion()">
+				<br><br> 
+			</div>
+		</div>
+	</body> 
+</html>
