@@ -40,47 +40,73 @@ while($row = mysqli_fetch_array($result)) {
 	}
 }
 // Get percentages 
-$stronglyAgree = ($stronglyAgree / $row_count ) * 100;
-$agree = ($agree / $row_count ) * 100;
+$stronglyAgreeP = ($stronglyAgree / $row_count ) * 100;
+$agreeP = ($agree / $row_count ) * 100;
 
-$neither = ($neither / $row_count ) * 100;
-$disagree = ($disagree / $row_count ) * 100;
-$stronglyDisagree = ($stronglyDisagree / $row_count ) * 100;
+$neitherP = ($neither / $row_count ) * 100;
+$disagreeP = ($disagree / $row_count ) * 100;
+$stronglyDisagreeP = ($stronglyDisagree / $row_count ) * 100;
 
 
 echo "
 <h3> The Stats </h3>
 <table border='1'>
 <tr>
-<th># of times this question was answered</th>
-<th>The Answers</th>
+<th>Answers</th>
+<th>Times Chosen </th>
 
 </tr>";
 
 // This Seeks back to the first Row so we can go through the object again.
 mysqli_data_seek($result,0);
-
+/*
 while($row2 = mysqli_fetch_array($result)) {
 	// Getting and setting the answer that the user gave
 	$answer = "";
-	
+	$frequency = 0;
 
 	if( $row2['answer_value'] == 1){
 		$answer = "Strongly Agree";
+		$frequency = $stronglyAgree;
+
 	}else if($row2['answer_value'] == 2){
 		$answer = "Agree";
+		$frequency = $agree;
+
 	}else if($row2['answer_value'] == 3){
 		$answer = "Neither";
+		$frequency = $neither;
+
 	} else if($row2['answer_value'] == 4){
 		$answer = "Disagree";
+		$frequency = $disagree;
+
 	} else if($row2['answer_value'] == 5){
 		$answer = "Strongly Disagree";
+		$frequency = $stronglyDisagree;
 	}
+	*/
   echo "<tr>";
-  echo "<td>" . $row_count. "</td>";		// outputs the number times this question has been answered
-  echo "<td>" . $answer . "</td>";			// outputs the different answers given
+  echo "<td>Strongly Agree</td>";		// outputs the different answers given
+  echo "<td>" .$stronglyAgree. "</td>";		// Outputs the number of times this answer was given	
   echo "</tr>";
-}
+  echo "<tr>";
+  echo "<td> Agree</td>";		// outputs the different answers given
+  echo "<td>" .$agree. "</td>";		// Outputs the number of times this answer was given	
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td>Neither</td>";		// outputs the different answers given
+  echo "<td>" .$neither. "</td>";		// Outputs the number of times this answer was given	
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td>disagree</td>";		// outputs the different answers given
+  echo "<td>" .$disagree. "</td>";		// Outputs the number of times this answer was given	
+  echo "</tr>";
+  echo "<tr>";
+  echo "<td>Strongly Disagree</td>";		// outputs the different answers given
+  echo "<td>" .$stronglyDisagree. "</td>";		// Outputs the number of times this answer was given	
+  echo "</tr>";
+//}
 echo "</table>";
 
 echo "<br> <br> <br>";
@@ -94,11 +120,11 @@ echo "<table border='1'>
 <th> % Strongly Disagrees <th>";
 
 echo "<tr>";
-echo "<td>" . $stronglyAgree . "</td>";
-echo "<td>" . $agree . "</td>";
-echo "<td>" . $neither . "</td>";
-echo "<td>" . $disagree . "</td>";
-echo "<td>" . $stronglyDisagree.  "</td>";
+echo "<td>" . $stronglyAgreeP . "</td>";
+echo "<td>" . $agreeP . "</td>";
+echo "<td>" . $neitherP . "</td>";
+echo "<td>" . $disagreeP . "</td>";
+echo "<td>" . $stronglyDisagreeP.  "</td>";
 echo "</tr>";
 
 echo "</table>";
