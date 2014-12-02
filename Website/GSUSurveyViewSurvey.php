@@ -74,7 +74,7 @@ $count = 0;
                                 for($i=$count + 1;$i<=$count+2;$i++){
                                     $radioValue = $question_id.'.'.$value;
                                 ?>
-                                    <td><input name = "<? echo $count; ?>" type="radio" id="<? echo $id; ?>" value = "<? echo $radioValue; ?>"></td>
+                                    <td><input name = "<?php echo $count; ?>" type="radio" id="<?php echo $id; ?>" value = "<?php echo $radioValue; ?>"></td>
                             <?php
                                     $value++;
                                     $id++;
@@ -90,34 +90,35 @@ $count = 0;
                             // loop through and print all the choices 
                             ?>
                             <tr>
-                                <td><?php echo $question; ?></td>
+                                <td><?php echo $question; ?></td><td></td><td></td><td></td><td></td><td></td>
                             </tr>
                             <?php
                             // finds out how many choices exist for the current question
-                            $stmt = $mysqli->prepare("SELECT COUNT(*) FROM choices_tbl WHERE choiceQuestion_id = ?");
-                            $stmt->bind_param('i',$question_id);
-                            $stmt->execute();    
-                            $stmt->store_result();
+                            $stmt_count = $mysqli->prepare("SELECT COUNT(*) FROM choices_tbl WHERE choiceQuestion_id = ?");
+                            $stmt_count->bind_param('i',$question_id);
+                            $stmt_count->execute();    
+                            $stmt_count->store_result();
                             // get variables from result.
-                            $stmt->bind_result($choice_count);
-                            $stmt->fetch();
+                            $stmt_count->bind_result($choice_count);
+                            $stmt_count->fetch();
                             //-----------------------------------------
                             // loads the choices values and choice_id
-                            $stmt = $mysqli->prepare("SELECT choice_id, choice FROM choices_tbl WHERE choiceQuestion_id = ? ORDER BY RAND()");
-                            $stmt->bind_param('i',$question_id);
-                            $stmt->execute();    
-                            $stmt->store_result();
+                            $stmt_load = $mysqli->prepare("SELECT choice_id, choice FROM choices_tbl WHERE choiceQuestion_id = ? ORDER BY RAND()");
+                            $stmt_load->bind_param('i',$question_id);
+                            $stmt_load->execute();    
+                            $stmt_load->store_result();
                             // get variables from result.
-                            $stmt->bind_result($choice_id, $value); // dont need choice id -- remove later
+                            $stmt_load->bind_result($choice_id, $value); // dont need choice id -- remove later
                             ?>
-                            <tr><td><span class="choice">
+                            
+                           <tr><td><span class="choice">
                             <?php
-                            while($stmt->fetch()){ // render the various choices
+                            while($stmt_load->fetch()){ // render the various choices
                                 //for($i=$count + 1;$i<=$count+$choice_count;$i++){ // might need to change way of value
                                     $radioValue = $question_id.'.'.$value;
                                 ?>
-                                    <input name = "<? echo $count; ?>" type="radio" id="<? echo $id; ?>" value = "<? echo $radioValue; ?>">
-                                    <label for="<? echo $id; ?>"><? echo $value; ?></label><br>
+                                    <input name = "<?php echo $count; ?>" type="radio" id="<?php echo $id; ?>" value = "<?php echo $radioValue; ?>">
+                                    <label for="<?php echo $id; ?>"><?php echo $value; ?></label><br>
                                 <?php
                                     //$value++;
                                     $id++;
@@ -133,7 +134,6 @@ $count = 0;
                         
                     }
                     ?>
-
                     
                     <tr><td colspan="6" align="center"><input name = "submit" type = "submit" id = "submit" value = "Submit"></td></tr>
             </form>
