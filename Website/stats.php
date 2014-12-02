@@ -5,7 +5,10 @@
 // Patrick Marino
 // Robert Myrick
 // Chris Beyer
-include_once 'includes/db-connect.php';		// Connects to our database so we can use #mysqli
+include_once 'includes/db-connect.php';
+include_once 'includes/functions.php';
+
+sec_session_start();
 	// Query the Database for the data on the questions
 	$result = $mysqli->query("SELECT * FROM question_tbl");
 	// Create an array of objects for each returned row
@@ -58,9 +61,10 @@ include_once 'includes/db-connect.php';		// Connects to our database so we can u
 	<div id = "wrapper">
 	<h1> Here are the Stats! </h1>
 
-	</div>
+	
 
 	<div id="content">
+	<?php if (login_check($mysqli) == 1) : ?>
 
 	<p id="paragraph">  Here we you can get some basic statistics on your survery. For instance, you can find out 
 	 What percentage of people selected a certain answer and how many people have taken your survey. </p>
@@ -79,6 +83,13 @@ include_once 'includes/db-connect.php';		// Connects to our database so we can u
 
 	 <div id="txtHint"><b>Statistics will be listed here.</b></div>
 
+	 <?php else : ?>
+            <p>
+                <span class="error">You are not authorized to access this page.</span> Please <a href="index.php">login</a>.
+            </p>
+        <?php endif; ?>
+
+	</div>
 	</div>
 
 
