@@ -39,6 +39,12 @@ include_once 'includes/db-connect.php';		// Connects to our database so we can u
 			<script>
 		function showAnswers(str){
 
+			// The select sends 2 values. The first is the question id and the second is the question type
+			// Split and get values 
+			var split = str.split(",");
+			var id = split[0];
+			var type = split[1];
+
 			if(str==""){
 				document.getElementById("txtHint").innerHTML="";
 				return;
@@ -55,7 +61,7 @@ include_once 'includes/db-connect.php';		// Connects to our database so we can u
 				}
 			}
 			
-			xmlhttp.open("GET","getanswers.php?q="+str,true);		// Sends the question_id to the getanswers.php file
+			xmlhttp.open("GET","getanswers.php?q="+id+"&"+"t="+type,true);		// Sends the question_id to the getanswers.php file
 			xmlhttp.send();
 		}
 
@@ -82,7 +88,7 @@ include_once 'includes/db-connect.php';		// Connects to our database so we can u
 	 <option value=""> Select a question </option>
 
 		<?php foreach ($array as $option) : ?> 
-			<option value="<?php echo $option->question_id; ?>" > <?php echo $option->question_ask; ?> </option>
+			<option value="<?php echo $option->question_id; ?>,<?php echo $option->question_type; ?>" > <?php echo $option->question_ask; ?> </option>
 		<?php endforeach ?>
 
 	 </select>
