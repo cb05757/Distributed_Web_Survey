@@ -11,7 +11,7 @@ sec_session_start();
 <html>
     <head>
         <title>GSU Survey: Log In</title>
-        <link rel="stylesheet" href="styles/main.css" />
+        <link rel="stylesheet" href="GSUSurveyView.css">
         <script type="text/JavaScript" src="js/sha512.js"></script> 
         <script type="text/JavaScript" src="js/forms.js"></script> 
     </head>
@@ -21,6 +21,14 @@ sec_session_start();
             echo '<p class="error">Error Logging In!</p>';
         }
         ?> 
+        <div id = "wrapper">
+                <h1>GSU Survey</h1>
+                <div id="nav">
+                    <ul>
+                    </ul>
+                </div>
+
+        <div id ="content">
         <form action="includes/process_login.php" method="post" name="login_form"> 			
             Email: <input type="text" name="email" />
             Password: <input type="password" 
@@ -32,5 +40,7 @@ sec_session_start();
         </form>
         <p>If you don't have a login, please <a href="register.php">register</a></p>
         <p>If you are done, please <a href="includes/logout.php">log out</a>.</p>
+        </div>
+    </div>
     </body>
 </html>

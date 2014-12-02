@@ -162,7 +162,7 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
  
                         }
                         //echo '<script type="text/javascript"> window.location = "pulldb.php";</script>';
-                        echo $question_id;
+                        echo "Thank you for taking the survey";
                     }
                     
                     ?>
