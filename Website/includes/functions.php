@@ -157,6 +157,19 @@ function getFormId($mysqli){
 }
 
 
+function getUserId($mysqli){
+    if(isset($_SESSION['user_id'], $_SESSION['login_string'])) {
+        $user_id = $_SESSION['user_id'];
+
+        return $user_id;
+
+    } else {
+        // Not logged in 
+        return false;
+    }
+}
+
+
 function esc_url($url) {
 
     if ('' == $url) {

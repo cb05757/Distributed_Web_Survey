@@ -1,5 +1,11 @@
 <?php
 include_once 'includes/db-connect.php';
+
+include_once 'includes/functions.php';
+
+sec_session_start();
+
+$user_id = getUserId();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -91,7 +97,7 @@ include_once 'includes/db-connect.php';
 
 	</head>
 
-	<body onload = "addQuestion()">
+	<body>
 		<div id = "wrapper">
 			<h1>GSU Survey</h1>
 			<div id="nav">
@@ -99,6 +105,8 @@ include_once 'includes/db-connect.php';
 			</ul>
 			</div>
 			<div id ="content">
+				<?php if (login_check($mysqli) == 1) : ?>
+					
 				
 					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> 
 					<span id = "buttons">
@@ -109,9 +117,22 @@ include_once 'includes/db-connect.php';
 
 					<?php
                     
-                    if(isset($_POST['submit'])){
-                    	// For Testing
-                    	$form = 1;
+                    if(isset($_POST['submit'])){                    	 
+                    	//create a form
+
+						$insert_stmt = $mysqli->prepare("INSERT INTO form_tbl (form_admin) VALUES (?)");
+                        $insert_stmt->bind_param('i', $user_id);
+                        // Execute the prepared query.
+                        $insert_stmt->execute();
+
+                        $stmt_count = $mysqli->prepare("SELECT form_id FROM form_tbl WHERE form_admin= ? ORDER BY form_id DESC LIMIT 1");
+                        $stmt_count->bind_param('i',$user_id);
+                        $stmt_count->execute();    
+                        $stmt_count->store_result();
+                        // get variables from result.
+                        $stmt_count->bind_result($form);
+                        $stmt_count->fetch();
+
                     	$type = 3;
                     	//--------------------------
 						$str = json_decode($_POST['str'], true);
@@ -165,14 +186,29 @@ include_once 'includes/db-connect.php';
 							$index+=$numOfAnswers;
 							$questionNum++;
 						}
-						echo'<script>window.location.href = "GSUSurveyViewSurvey.php";</script>';
+						//$survey_path = "GSUSurveyViewSurvey.php?survey=".$form.;
+
+						//echo '<script>window.location = "GSUSurveyViewSurvey.php?survey='.$form'";</script>';
+						echo '<script type="text/javascript">
+							window.location = "GSUSurveyViewSurvey.php?survey='.$form.'"
+							</script>';
+					
+						
+
 					}
 						
   					
                     ?>
 				</span>
 				<br><br> 
-
+				<script>
+						addQuestion();
+				</script>
+			<?php else : ?>
+				<p>
+                	<span class="error">You are not authorized to access this page.</span> Please <a href="index.php">login</a>.
+            	</p>
+        	<?php endif; ?>
 			</div>
 		</div>
 	</body> 

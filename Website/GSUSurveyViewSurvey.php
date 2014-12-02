@@ -7,6 +7,8 @@
 include_once 'includes/db-connect.php';
 $count = 0;
 // question value $question_id.A;
+
+$question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STRING);; // retrieve the question form
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -32,8 +34,8 @@ $count = 0;
             <form name="survey" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 
                     <?php
-                    $stmt = $mysqli->prepare("SELECT question_id, question_type, question_form, question_ask, question_value1, question_value2  FROM question_tbl");
-                    //$stmt->bind_param('i',$store_id);
+                    $stmt = $mysqli->prepare("SELECT question_id, question_type, question_form, question_ask, question_value1, question_value2  FROM question_tbl WHERE question_form = ?");
+                    $stmt->bind_param('i',$question_form);
                     $stmt->execute();    // Execute the prepared query.
                     $stmt->store_result();
                     // get variables from result.
@@ -149,7 +151,7 @@ $count = 0;
                             // get the value of the answer
                             //$value = 2;//substr($update_id, strrchr($update_id, "."));
                             $value = substr($update_id, strpos($update_id, '.')+1);
-                            $form = 1; // change to be dynamic later
+                            $form = $question_form; // change to be dynamic later
                             
                             // get the form
                             
