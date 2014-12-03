@@ -10,7 +10,7 @@ include_once 'includes/functions.php';
 
 sec_session_start();
 	// Query the Database for the data on the questions
-	$result = $mysqli->query("SELECT * FROM question_tbl");
+	$result = $mysqli->query("SELECT * FROM form_tbl");
 	// Create an array of objects for each returned row
 	$array = array();
 	if ($result) {
@@ -24,6 +24,7 @@ sec_session_start();
             echo "Error with SQL";
         }
 ?>
+
 <!DOCTYPE HTML>
 
 <html>
@@ -76,7 +77,7 @@ sec_session_start();
 	 <option value=""> Select a question </option>
 
 		<?php foreach ($array as $option) : ?> 
-			<option value="<?php echo $option->question_id; ?>" > <?php echo $option->question_ask; ?> </option>
+			<option value="<?php echo $option->form_id; ?>" > Survey # <?php echo $option->form_id; ?> </option>
 		<?php endforeach ?>
 
 	 </select>

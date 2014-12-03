@@ -2,8 +2,6 @@
 
 include_once 'includes/db-connect.php';
 
-
-
 include_once 'includes/functions.php';
 
 
@@ -37,7 +35,6 @@ $user_id = getUserId();
 			var questionIndex = 0;
 
 
-
 			var questionNum = 0; // add to the array at the end right before submittion
 
 			function addQuestion(){
@@ -48,19 +45,13 @@ $user_id = getUserId();
 				div.id = "question"+ questionNum;
 				div.className = "question";
 
-
-
 				// Creates the Question
 
 				var question = prompt("What is your question?");
 
 
-
 				questionArray[questionIndex] = question; // add the question to the question array
 				questionIndex++;
-
-
-
 
 
 				var text = document.createElement("input");
@@ -86,7 +77,7 @@ $user_id = getUserId();
 
 
 
-				editQuestionBtn.onclick = function editQuestion(){
+				editQuestionBtn.onclick = function editQuestion(){ //----------------------------
 					var newQuestion = window.prompt("Enter in the new Question")
 					text.value = newQuestion;
 					text.text = newQuestion;
@@ -111,7 +102,7 @@ $user_id = getUserId();
 
 
 
-				// Asks the first required Response
+				// Asks the first required Response-------------------------------------------------
 
 				var response = prompt("Enter in the Response");
 
@@ -131,15 +122,11 @@ $user_id = getUserId();
 				var editResponseBtn = document.createElement("input");
 
 				editResponseBtn.type = "button";
-
 				editResponseBtn.value = "Edit";
-
-				editResponseBtn.onclick = function editResponse(){
+				editResponseBtn.onclick = function editResponse(){ //-------------------------------
 
 					var newResponse = prompt("Enter in the new Response");
-
 					radio.value = newResponse;
-
 					label.innerHTML = radio.value;
 
 				};
@@ -147,59 +134,37 @@ $user_id = getUserId();
 
 
 				div.appendChild(radio);
-
 				div.appendChild(label);
-
 				div.appendChild(editResponseBtn);
-
-
-
-
-
-
-
 
 
 				// Allows for more responses to be added with a button click
 
-				addResponseBtn.onclick = function addNewResponse(){
+				addResponseBtn.onclick = function addNewResponse(){ //--------------------
 
 					var response = prompt("Enter in a Response");
 
 
-
 					var radio = document.createElement("input");
-
 					radio.type = "radio";
-
 					radio.value = response;
-
 					radio.name = "question " + questionNum + "response";
-
 					radio.id = "question " + questionNum + "response";
 
 					 
-
 					var label = document.createElement("Label");
-
 					label.setAttribute("for", "question " + questionNum + "response");
-
 					label.innerHTML = radio.value;
 
 
 
 					var editResponseBtn = document.createElement("input");
-
 					editResponseBtn.type = "button";
-
 					editResponseBtn.value = "Edit";
-
-					editResponseBtn.onclick = function editResponse(){
+					editResponseBtn.onclick = function editResponse(){ //---------------------------------
 
 						var newResponse = prompt("Enter in a new Response");
-
 						radio.value = newResponse;
-
 						label.innerHTML = radio.value;
 
 					};
@@ -207,81 +172,51 @@ $user_id = getUserId();
 
 
 					var removeResponseBtn = document.createElement("input");
-
 					removeResponseBtn.type = "button";
-
 					removeResponseBtn.value = "Remove";
 
-					removeResponseBtn.onclick = function removeResponse(){
 
-
+					removeResponseBtn.onclick = function removeResponse(){ //--------------------------
 
 					div.removeChild(radio);
-
 					div.removeChild(label);
-
 					div.removeChild(editResponseBtn);
-
 					div.removeChild(removeResponseBtn);
 
 				};
 
 
-
-
-
 					div.appendChild(radio);
-
 					div.appendChild(label);
-
 					div.appendChild(editResponseBtn);
-
 					div.appendChild(removeResponseBtn);
-
 					var lineBreak = document.createElement("br");
-
+					div.appendChild(lineBreak);
+					var lineBreak = document.createElement("br");
 					div.appendChild(lineBreak);
 
-					var lineBreak = document.createElement("br");
-
-					div.appendChild(lineBreak);
-
-					
-
-
-
-
-
+				
 				};
 
 
 
 				var lineBreak = document.createElement("br");
-
 				div.appendChild(lineBreak);
 
 				var lineBreak = document.createElement("br");
-
 				div.appendChild(lineBreak);
-
-
 
 				document.getElementById('content').appendChild(div);
 
 
 
-				removeQuestionBtn.onclick = function removeQuestion(){
-
+				removeQuestionBtn.onclick = function removeQuestion(){ // remove question
 					var r = window.confirm("Are you sure you want to delete this question and it's responses?");
 
 					if (r == true){
-
 						document.getElementById('content').removeChild(div);
-
 					}	
-
 				};
-
 			}
 
 
@@ -289,8 +224,11 @@ $user_id = getUserId();
 			function submitQuestions(){
 
 				questionArray[questionIndex] = String(questionNum); // we add the number of questions to the very end of the array right before submitting
-
 				questionIndex++;
+
+			}
+
+			function createArray(){
 
 			}
 
@@ -321,11 +259,8 @@ $user_id = getUserId();
 			<h1>GSU Survey</h1>
 
 			<div id="nav">
-
 			<ul>
-
 			</ul>
-
 			</div>
 
 			<div id ="content">
@@ -333,19 +268,12 @@ $user_id = getUserId();
 				<?php if (login_check($mysqli) == 1) : ?>
 
 					
-
-				
-
 					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> 
 
 					<span id = "buttons">
-
 						<input type = "button" value="Create New Question" onclick="addQuestion()">
-
 						<input type="hidden" id="str" name="str" value="" /> 
-
 						<input type="submit" id="btn" name="submit" value="Finish Survey" onclick="submitQuestions()"/>
-
  					</form>
 
 
