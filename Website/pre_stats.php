@@ -16,11 +16,7 @@ sec_session_start();
         <?php if (login_check($mysqli) == 1) : ?>
             <div id = "wrapper">
                 <h1>GSU Survey</h1>
-                <div id="nav">
-                    <ul>
-                    </ul>
-                </div>
-
+                
                 <div id ="content">
 
                     

@@ -16,21 +16,16 @@ sec_session_start();
         <?php if (login_check($mysqli) == 1) : ?>
             <div id = "wrapper">
                 <h1>GSU Survey</h1>
-                <div id="nav">
-                    <ul>
-                    </ul>
-                </div>
-
+                
                 <div id ="content">
-
-                    <p>
-                    <a href="GSUSurveyCreateSurvey.php">Create a Survey</a>
-                    <br>
-                    <a href="stats.php">View the Statistics</a>
-                    <br>
-
-                    Return to <a href="index.php">login page</a>
-                    </p>
+                    <ul class="icon">
+                        <li><a href="GSUSurveyCreateSurvey.php"><img src="surveyIcon.jpg" width="200" height="160" alt="Survey Icon"><br>Create a Survey</a></li>
+                       
+                        <li><a href="stats.php"><img src="statisticsIcon.jpg" width="200" height="160" alt="Statistics Icon"><br>View the Statistics</a></li>
+                    </ul>
+                    <footer>
+                        <p>Return to <a href="index.php">login page</a></p>
+                    </footer>
                 </div>
             </div>
         <?php else : ?>

@@ -82,7 +82,7 @@ while($row =mysqli_fetch_array($result)){
 	$answer_count = $answerResult->num_rows;
 	
 	
-		echo " <table border='1'> 
+		echo " <table> 
 		<tr>
 		<th> Answers </th>
 		<th> Times Answered </th>

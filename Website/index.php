@@ -23,20 +23,21 @@ sec_session_start();
         ?> 
         <div id = "wrapper">
                 <h1>GSU Survey</h1>
-                <div id="nav">
-                    <ul>
-                    </ul>
-                </div>
+                
 
         <div id ="content">
-        <form action="includes/process_login.php" method="post" name="login_form"> 			
-            Email: <input type="text" name="email" /><br>
-            Password: <input type="password" 
-                             name="password" 
-                             id="password"/>
-            <input type="button" 
-                   value="Login" 
-                   onclick="formhash(this.form, this.form.password);" /> 
+        <h2>Welcome to GSU Survey Creator</h2>
+        <form class="login" action="includes/process_login.php" method="post" name="login_form"> 	
+            <fieldset>
+                <legend>Login</legend>		
+                <label>Email: </label><input type="text" name="email" /><br>
+                <label>Password: </label><input type="password" 
+                                 name="password" 
+                                 id="password"/><br>
+                <input type="button" 
+                       value="Submit" 
+                       onclick="formhash(this.form, this.form.password);" /> 
+            </fieldset>
         </form>
         <p>If you don't have a login, please <a href="register.php">register</a></p>
         <p>If you are done, please <a href="includes/logout.php">log out</a>.</p>

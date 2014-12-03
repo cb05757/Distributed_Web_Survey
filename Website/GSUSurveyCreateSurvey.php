@@ -22,7 +22,7 @@ $user_id = getUserId();
 
 		<title>GSU Create Survey</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="GSUSurvey.css">
+		<link rel="stylesheet" href="GSUSurveyView.css">
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
 
@@ -214,7 +214,7 @@ $user_id = getUserId();
 				var lineBreak = document.createElement("br");
 				div.appendChild(lineBreak);
 
-				document.getElementById('content').appendChild(div);
+				document.getElementById('altContent').appendChild(div);
 
 
 
@@ -222,7 +222,7 @@ $user_id = getUserId();
 					var r = window.confirm("Are you sure you want to delete this question and it's responses?");
 
 					if (r == true){
-						document.getElementById('content').removeChild(div);
+						document.getElementById('altContent').removeChild(div);
 					}	
 				};
 			}
@@ -266,6 +266,13 @@ $user_id = getUserId();
 
 
 			}
+			function leavePage(){
+				var cond = window.confirm("All work will be lost. Leave anyway?");
+				if (cond == true){
+					self.open("protected_page.php");
+
+				}
+			}
 
 
 
@@ -293,15 +300,10 @@ $user_id = getUserId();
 
 			<h1>GSU Survey</h1>
 
-			<div id="nav">
-			<ul>
-			</ul>
-			</div>
-
-			<div id ="content">
+			<div id ="altContent">
 
 				<?php if (login_check($mysqli) == 1) : ?>
-
+					<h2>Create a Survey</h2>
 					
 					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> 
 
@@ -310,6 +312,9 @@ $user_id = getUserId();
 						<input type="hidden" id="str" name="str" value="" /> 
 						<input type="submit" id="btn" name="submit" value="Finish Survey" onclick="createArray()"/>
  					</form>
+ 					<footer>
+	                    <input type="button" class="home" onclick="leavePage()" value="Return to HomePage">
+	                </footer>
 
 
 
@@ -411,6 +416,8 @@ $user_id = getUserId();
             	</p>
 
         	<?php endif; ?>
+        		
+
 
 			</div>
 
