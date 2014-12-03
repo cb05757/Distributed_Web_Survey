@@ -32,12 +32,13 @@ $user_id = getUserId();
 
 
 			var questionArray = new Array();
-			var questionIndex = 0;
-
-
 			var questionNum = 0; // add to the array at the end right before submittion
+			var totalQuestions = 0;
+			var index = 0;
 
 			function addQuestion(){
+
+				var numChoice = 0;
 
 				questionNum++;
 				var lineBreak = document.createElement("br");
@@ -50,9 +51,6 @@ $user_id = getUserId();
 				var question = prompt("What is your question?");
 
 
-				questionArray[questionIndex] = question; // add the question to the question array
-				questionIndex++;
-
 
 				var text = document.createElement("input");
 
@@ -64,6 +62,16 @@ $user_id = getUserId();
 				div.appendChild(text);
 
 
+				//--------------------------------------------------------
+/*
+				var responseNumber = document.createElement("input");
+
+				responseNumber.type = "hidden";
+				responseNumber.value = numChoice;
+				responseNumber.readOnly = true;
+				div.appendChild(responseNumber);
+*/
+				//-------------------------------------------------------
 
 				var addResponseBtn = document.createElement("input");
 				addResponseBtn.type = "button";
@@ -223,12 +231,39 @@ $user_id = getUserId();
 
 			function submitQuestions(){
 
-				questionArray[questionIndex] = String(questionNum); // we add the number of questions to the very end of the array right before submitting
-				questionIndex++;
+				questionArray[index] = String(totalQuestions); // we add the number of questions to the very end of the array right before submitting
+				
 
 			}
 
 			function createArray(){
+
+				
+				var lastChoiceNum = 0;
+
+				var inputs = document.getElementsByTagName("INPUT"); // stores how many input elements are in the page
+
+				for(var i = 0; i < inputs.length; i++){
+
+					if(inputs[i].type == 'text'){ // question
+						questionArray[index] = inputs[i].value;
+						totalQuestions++;
+						lastChoiceNum = index + 1;
+						questionArray[lastChoiceNum] = 0;
+						index+=2;
+
+					}else if(inputs[i].type == 'radio'){ // choice
+						
+						questionArray[index] = inputs[i].value;
+						questionArray[lastChoiceNum] += 1;
+						index++;
+
+					}
+
+				}
+
+				questionArray[index] = String(totalQuestions);
+
 
 			}
 
@@ -273,7 +308,7 @@ $user_id = getUserId();
 					<span id = "buttons">
 						<input type = "button" value="Create New Question" onclick="addQuestion()">
 						<input type="hidden" id="str" name="str" value="" /> 
-						<input type="submit" id="btn" name="submit" value="Finish Survey" onclick="submitQuestions()"/>
+						<input type="submit" id="btn" name="submit" value="Finish Survey" onclick="createArray()"/>
  					</form>
 
 
@@ -283,141 +318,61 @@ $user_id = getUserId();
                     
 
                     if(isset($_POST['submit'])){                    	 
-
                     	//create a form
-
-
-
 						$insert_stmt = $mysqli->prepare("INSERT INTO form_tbl (form_admin) VALUES (?)");
-
                         $insert_stmt->bind_param('i', $user_id);
-
                         // Execute the prepared query.
-
                         $insert_stmt->execute();
-
-
-
                         $stmt_count = $mysqli->prepare("SELECT form_id FROM form_tbl WHERE form_admin= ? ORDER BY form_id DESC LIMIT 1");
-
                         $stmt_count->bind_param('i',$user_id);
-
                         $stmt_count->execute();    
-
                         $stmt_count->store_result();
-
                         // get variables from result.
-
                         $stmt_count->bind_result($form);
-
                         $stmt_count->fetch();
-
-
-
                     	$type = 3;
-
                     	//--------------------------
-
 						$str = json_decode($_POST['str'], true);
-
 						$numberOfQuestions = intval($str[count($str)-1]); // convert to int
-
 						$questionNum = 0;
-
 						$index = 0;
-
 						//var_dump($str);
-
-
-
 						// str holds all values
-
-
-
 						while($questionNum < $numberOfQuestions){
-
 							$question = $str[$index];
-
 							$index++;
-
 							$numOfAnswers = intval($str[$index]); // convert to int
-
 							$index++;
-
-
-
 							// enter question in db
-
 							$insert_stmt = $mysqli->prepare("INSERT INTO question_tbl (question_type, question_form, question_ask) VALUES (?, ?, ?)");
-
                             $insert_stmt->bind_param('iis', $type, $form, $question);
-
                             // Execute the prepared query.
-
                             $insert_stmt->execute();
-
-
-
-
-
 							// retreive question id
 							$stmt_count = $mysqli->prepare("SELECT question_id FROM question_tbl WHERE question_ask = ? AND question_form = ? LIMIT 1");
                             $stmt_count->bind_param('si',$question,$form);
                             $stmt_count->execute();    
                             $stmt_count->store_result();
-
                             // get variables from result.
-
                             $stmt_count->bind_result($question_id);
                             $stmt_count->fetch();
-
-
-
                             if ($stmt_count->num_rows == 1) {
-
-
-
 							// loop through answers and enter in db
-
                             	for($i=0;$i<$numOfAnswers;$i++){
-
                             		$choice = $str[$index];
-
                             		$index++;
-
-
-
                             		$insert_stmt = $mysqli->prepare("INSERT INTO choices_tbl (choiceQuestion_id, choice) VALUES (?, ?)");
-
                             		$insert_stmt->bind_param('is', $question_id, $choice);
-
                             		// Execute the prepared query.
-
                             		$insert_stmt->execute();
-
                             	}
-
                             	
-
                             }
-
-
-
-
-
 							// increment to next question
-
-							$index+=$numOfAnswers;
-
 							$questionNum++;
-
 						}
 
-						//$survey_path = "GSUSurveyViewSurvey.php?survey=".$form.;
-
-
-
-						//echo '<script>window.location = "GSUSurveyViewSurvey.php?survey='.$form'";</script>';
+					
 
 						echo '<script type="text/javascript">
 
@@ -427,9 +382,7 @@ $user_id = getUserId();
 
 					
 
-						
-
-
+					
 
 					}
 
