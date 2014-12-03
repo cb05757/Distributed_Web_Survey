@@ -8,7 +8,7 @@ include_once 'includes/db-connect.php';
 $count = 0;
 // question value $question_id.A;
 
-$question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STRING);; // retrieve the question form
+$question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STRING); // retrieve the question form
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,6 +16,12 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
         <title>GSU Survey View</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="GSUSurveyView.css">
+        <style>
+            td, th{
+                min-width: 300px;
+            }
+
+        </style>
     </head>
 
     <body>
@@ -92,7 +98,7 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
                             // loop through and print all the choices 
                             ?>
                             <tr>
-                                <td><?php echo $question; ?></td><td></td><td></td><td></td><td></td><td></td>
+                                <td><?php echo $question; ?></td>
                             </tr>
                             <?php
                             // finds out how many choices exist for the current question
@@ -151,7 +157,18 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
                             // get the value of the answer
                             //$value = 2;//substr($update_id, strrchr($update_id, "."));
                             $value = substr($update_id, strpos($update_id, '.')+1);
-                            $form = $question_form; // change to be dynamic later
+
+
+                            $stmt_form = $mysqli->prepare("SELECT question_form FROM question_tbl WHERE question_id=?");
+                            $stmt_form->bind_param('i',$question_id);
+                            $stmt_form->execute();    
+                            $stmt_form->store_result();
+                            // get variables from result.
+                            $stmt_form->bind_result($form);
+                            $stmt_form->fetch();
+
+
+                            //$form = $question_form; // change to be dynamic later
                             
                             // get the form
                             
@@ -166,11 +183,6 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
                     }
                     
                     ?>
-
-                    
-            
-            <?php echo $msg; ?>
-
 
 
 
