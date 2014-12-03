@@ -141,14 +141,17 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
                         }
                         
                     }
+                    //echo $count;
                     ?>
                     
-                    <tr><td colspan="6" align="center"><input name = "submit" type = "submit" id = "submit" value = "Submit"></td></tr>
+                    <tr><td colspan="6" align="center"><input name = "submit" type = "submit" id = "submit" value = "Submit"><input type="hidden" id="str" name="str" value="<?php echo $count; ?>" /> </td></tr>
+
             </form>
         </table>
 
                     <?php
                     if(isset($_POST['submit'])) {
+                        $count = $_POST['str'];
                         for($i = 0; $i <= $count; $i++){ // change to < and remove count++ from the end of all for loops
                             $update_id = $_POST[(string)$i];
                             //get the question id
@@ -171,7 +174,7 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
                             //$form = $question_form; // change to be dynamic later
                             
                             // get the form
-                            
+                            //$form = 12;
                             $insert_stmt = $mysqli->prepare("INSERT INTO answer_tbl (answer_question, answer_value, answer_form) VALUES (?, ?, ?)");
                             $insert_stmt->bind_param('ssi', $question_id, $value, $form);
                             // Execute the prepared query.

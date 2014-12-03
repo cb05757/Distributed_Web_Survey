@@ -12,41 +12,7 @@ h1 {
 	padding-left:20px;
 	min-height: 72px;
 	margin-bottom:0;
-}
-#nav
-	{
-	font-weight: bold;
-	float:left;
-	width:160px;
-	padding-top: 20px;
-	padding-right: 5px;
-	padding-bottom: 5px;
-	padding-left: 20px;
-
-}
-
-#nav a{
-	text-decoration: none;
-}
-
-#nav a:link{
-	color:#000000;
-}
-
-#nav a:visited{
-	color:#a5a5a5;
-}
-
-#nav a:hover{
-	color:#FFFFFF;
-}
-
-#nav ul{
-	list-style-type: none;
-	margin:0;
-	padding-left: 0;
-}
-
+}	
 h2{
 	color:#0b1722;
 }
@@ -74,7 +40,6 @@ h3{
 	padding-left:20px;
 	padding-right:20px;
 	background-color: #FFFFFF;
-	margin-left: 160px;
 }
 
 #content img{
@@ -106,7 +71,7 @@ td, th{
 	color:#000000; 
 	border-collapse:collapse;
 	*/
-	
+
 	text-align: center;
 	color: black;
 }
