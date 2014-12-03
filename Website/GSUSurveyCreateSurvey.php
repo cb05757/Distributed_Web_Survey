@@ -158,8 +158,8 @@ $user_id = getUserId();
 
 							// retreive question id
 
-							$stmt_count = $mysqli->prepare("SELECT question_id FROM question_tbl WHERE question_ask = ? LIMIT 1");
-                            $stmt_count->bind_param('s',$question);
+							$stmt_count = $mysqli->prepare("SELECT question_id FROM question_tbl WHERE question_ask = ? AND question_form = ? LIMIT 1");
+                            $stmt_count->bind_param('si',$question,$form);
                             $stmt_count->execute();    
                             $stmt_count->store_result();
                             // get variables from result.
@@ -183,7 +183,6 @@ $user_id = getUserId();
 
 
 							// increment to next question
-							$index+=$numOfAnswers;
 							$questionNum++;
 						}
 						//$survey_path = "GSUSurveyViewSurvey.php?survey=".$form.;
