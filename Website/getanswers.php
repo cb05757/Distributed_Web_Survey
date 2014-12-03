@@ -15,6 +15,8 @@ $row_count = $result->num_rows;		// Gets the number of rows/objects/ Questions f
 
 echo " <h3> Your survey has $row_count questions. </h3>";
 
+echo '<p>Here is a link to your survey <a href="http://localhost/GSUSurveyViewSurvey.php?survey='.$q.'">http://localhost/GSUSurveyViewSurvey.php?survey='.$q.'</a>';
+
 echo "<h3> Here are your questions: </h3> <br/>";
 
 // Gets the questions for this survey
