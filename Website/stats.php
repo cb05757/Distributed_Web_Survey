@@ -60,13 +60,14 @@ sec_session_start();
 
 <body>
 	<div id = "wrapper">
-	<h1> Here are the Stats! </h1>
+	<h1>GSU Survey</h1>
 
 	
 
 	<div id="content">
 	<?php if (login_check($mysqli) == 1) : ?>
 
+	<h2>View Your Surveys Statistics</h2>
 	<p id="paragraph">  Here we you can get some basic statistics on your survery. For instance, you can find out 
 	 What percentage of people selected a certain answer and how many people have taken your survey. </p>
 
@@ -89,7 +90,9 @@ sec_session_start();
                 <span class="error">You are not authorized to access this page.</span> Please <a href="index.php">login</a>.
             </p>
         <?php endif; ?>
-
+        <footer>
+        	<a class="home" href="protected_page.php">Return to HomePage</a>
+        </footer>
 	</div>
 	</div>
 

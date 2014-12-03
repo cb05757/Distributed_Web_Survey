@@ -28,15 +28,11 @@ $question_form = filter_input(INPUT_GET, 'survey', $filter = FILTER_SANITIZE_STR
 
         <div id = "wrapper">
             <h1>GSU Survey</h1>
-            <div id="nav">
-            <ul>
-            </ul>
-            </div>
-
+            
             <div id ="content">
 
                 <h2>GSU Survey View</h2>
-<table border="0" cellspacing="4" cellpadding="4" align = "center">
+<table id="survey" border="0" cellspacing="4" cellpadding="4" align = "center">
             <form name="survey" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 
                     <?php
